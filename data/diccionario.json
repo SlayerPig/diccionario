@@ -1,1 +1,14 @@
-
+[
+  {
+    "palabra": "alegría",
+    "definicion": "Sentimiento de placer y felicidad.",
+    "sinonimos": ["felicidad", "gozo", "júbilo"],
+    "temas": ["emociones", "sentimientos"]
+  },
+  {
+    "palabra": "tristeza",
+    "definicion": "Estado de ánimo decaído o melancólico.",
+    "sinonimos": ["melancolía", "pena", "aflicción"],
+    "temas": ["emociones", "sentimientos"]
+  }
+]

@@ -18,34 +18,49 @@ function mostrarModo(modo) {
   if (modo === 'alfabetico') {
     datos.sort((a, b) => a.palabra.localeCompare(b.palabra));
     datos.forEach(entry => {
+      cont.innerHTML += generarEntrada(entry);
+    });
+
+  } else if (modo === 'sinonimos') {
+    datos.forEach(entry => {
       cont.innerHTML += `
         <div class="entrada">
           <h2>${entry.palabra}</h2>
-          <p><strong>Tipo:</strong> ${entry.tipo}</p>
-          <p><strong>Pronunciación:</strong> ${entry.pronunciacion}</p>
-          <p><strong>Definición:</strong> ${entry.definicion}</p>
-          <p><strong>Ejemplo:</strong> <em>${entry.ejemplo}</em></p>
           <p><strong>Sinónimos:</strong> ${entry.sinonimos.join(', ')}</p>
           <p><strong>Antónimos:</strong> ${entry.antonimos.join(', ')}</p>
-          <hr>
         </div>
       `;
     });
-  }
-  } else if (modo === 'sinonimos') {
-    datos.forEach(entry => {
-      cont.innerHTML += `<p><strong>${entry.palabra}</strong> – Sinónimos: ${entry.sinonimos.join(', ')}</p>`;
-    });
+
   } else if (modo === 'temas') {
     const porTema = {};
+
     datos.forEach(entry => {
       entry.temas.forEach(t => {
-        porTema[t] = porTema[t] || [];
-        porTema[t].push(entry.palabra);
+        if (!porTema[t]) porTema[t] = [];
+        porTema[t].push(entry);
       });
     });
+
     for (let tema in porTema) {
-      cont.innerHTML += `<h3>${tema}</h3><p>${porTema[tema].join(', ')}</p>`;
+      cont.innerHTML += `<h2>${tema}</h2>`;
+      porTema[tema].forEach(entry => {
+        cont.innerHTML += generarEntrada(entry);
+      });
     }
   }
+}
+
+function generarEntrada(entry) {
+  return `
+    <div class="entrada">
+      <h2>${entry.palabra}</h2>
+      <p><strong>Tipo:</strong> ${entry.tipo}</p>
+      <p><strong>Pronunciación:</strong> ${entry.pronunciacion}</p>
+      <p><strong>Definición:</strong> ${entry.definicion}</p>
+      <p><strong>Ejemplo:</strong> <em>${entry.ejemplo}</em></p>
+      <p><strong>Sinónimos:</strong> ${entry.sinonimos.join(', ')}</p>
+      <p><strong>Antónimos:</strong> ${entry.antonimos.join(', ')}</p>
+    </div>
+  `;
 }

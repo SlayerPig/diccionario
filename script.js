@@ -18,8 +18,20 @@ function mostrarModo(modo) {
   if (modo === 'alfabetico') {
     datos.sort((a, b) => a.palabra.localeCompare(b.palabra));
     datos.forEach(entry => {
-      cont.innerHTML += `<p><strong>${entry.palabra}</strong>: ${entry.definicion}</p>`;
+      cont.innerHTML += `
+        <div class="entrada">
+          <h2>${entry.palabra}</h2>
+          <p><strong>Tipo:</strong> ${entry.tipo}</p>
+          <p><strong>Pronunciación:</strong> ${entry.pronunciacion}</p>
+          <p><strong>Definición:</strong> ${entry.definicion}</p>
+          <p><strong>Ejemplo:</strong> <em>${entry.ejemplo}</em></p>
+          <p><strong>Sinónimos:</strong> ${entry.sinonimos.join(', ')}</p>
+          <p><strong>Antónimos:</strong> ${entry.antonimos.join(', ')}</p>
+          <hr>
+        </div>
+      `;
     });
+  }
   } else if (modo === 'sinonimos') {
     datos.forEach(entry => {
       cont.innerHTML += `<p><strong>${entry.palabra}</strong> – Sinónimos: ${entry.sinonimos.join(', ')}</p>`;

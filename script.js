@@ -4,73 +4,52 @@ fetch('data/diccionario.json')
   .then(res => res.json())
   .then(json => {
     datos = json;
-    mostrarModo('alfabetico');
+    mostrarRimas('');
   });
 
-document.getElementById('modo').addEventListener('change', e => {
-  mostrarModo(e.target.value);
+document.getElementById('busqueda').addEventListener('input', e => {
+  const palabra = e.target.value.toLowerCase();
+  mostrarRimas(palabra);
 });
 
-document.getElementById('busqueda').addEventListener('input', () => {
-  mostrarModo(document.getElementById('modo').value);
-});
-
-function mostrarModo(modo) {
+function mostrarRimas(palabra) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
 
-  const filtro = document.getElementById('busqueda').value.toLowerCase();
+  if (palabra === '') {
+    cont.innerHTML = '<p>Escribe una palabra para encontrar rimas.</p>';
+    return;
+  }
 
-  let filtrados = datos.filter(entry =>
-    entry.palabra.toLowerCase().includes(filtro)
-  );
+  const entrada = datos.find(e => e.palabra.toLowerCase() === palabra);
 
-  if (modo === 'alfabetico') {
-    filtrados.sort((a, b) => a.palabra.localeCompare(b.palabra));
-    filtrados.forEach(entry => {
-      cont.innerHTML += generarEntrada(entry);
-    });
+  if (entrada) {
+    cont.innerHTML += `
+      <div class="entrada">
+        <h2>${entrada.palabra}</h2>
+        <p><strong>Rimas:</strong> ${entrada.rimas.join(', ')}</p>
+        <p><strong>Temas:</strong> ${entrada.temas.join(', ')}</p>
+        <p><strong>Terminación:</strong> -${entrada.terminacion}</p>
+      </div>
+    `;
+  } else {
+    // Si no encuentra la palabra exacta, busca por terminación similar
+    const terminacion = palabra.slice(-2); // las dos últimas letras
+    const sugerencias = datos.filter(e => e.terminacion.includes(terminacion));
 
-  } else if (modo === 'sinonimos') {
-    filtrados.forEach(entry => {
-      cont.innerHTML += `
-        <div class="entrada">
-          <h2>${entry.palabra}</h2>
-          <p><strong>Sinónimos:</strong> ${entry.sinonimos.join(', ')}</p>
-          <p><strong>Antónimos:</strong> ${entry.antonimos.join(', ')}</p>
-        </div>
-      `;
-    });
-
-  } else if (modo === 'temas') {
-    const porTema = {};
-
-    filtrados.forEach(entry => {
-      entry.temas.forEach(t => {
-        if (!porTema[t]) porTema[t] = [];
-        porTema[t].push(entry);
-      });
-    });
-
-    for (let tema in porTema) {
-      cont.innerHTML += `<h2>${tema}</h2>`;
-      porTema[tema].forEach(entry => {
-        cont.innerHTML += generarEntrada(entry);
+    if (sugerencias.length === 0) {
+      cont.innerHTML = `<p>No se encontraron rimas para "<strong>${palabra}</strong>".</p>`;
+    } else {
+      cont.innerHTML = `<p>No se encontró "${palabra}", pero estas palabras riman de forma parcial:</p>`;
+      sugerencias.forEach(entry => {
+        cont.innerHTML += `
+          <div class="entrada">
+            <h2>${entry.palabra}</h2>
+            <p><strong>Rimas:</strong> ${entry.rimas.join(', ')}</p>
+            <p><strong>Temas:</strong> ${entry.temas.join(', ')}</p>
+          </div>
+        `;
       });
     }
   }
-}
-
-function generarEntrada(entry) {
-  return `
-    <div class="entrada">
-      <h2>${entry.palabra}</h2>
-      <p><strong>Tipo:</strong> ${entry.tipo}</p>
-      <p><strong>Pronunciación:</strong> ${entry.pronunciacion}</p>
-      <p><strong>Definición:</strong> ${entry.definicion}</p>
-      <p><strong>Ejemplo:</strong> <em>${entry.ejemplo}</em></p>
-      <p><strong>Sinónimos:</strong> ${entry.sinonimos.join(', ')}</p>
-      <p><strong>Antónimos:</strong> ${entry.antonimos.join(', ')}</p>
-    </div>
-  `;
 }

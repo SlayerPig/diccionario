@@ -11,18 +11,28 @@ document.getElementById('modo').addEventListener('change', e => {
   mostrarModo(e.target.value);
 });
 
+document.getElementById('busqueda').addEventListener('input', () => {
+  mostrarModo(document.getElementById('modo').value);
+});
+
 function mostrarModo(modo) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
 
+  const filtro = document.getElementById('busqueda').value.toLowerCase();
+
+  let filtrados = datos.filter(entry =>
+    entry.palabra.toLowerCase().includes(filtro)
+  );
+
   if (modo === 'alfabetico') {
-    datos.sort((a, b) => a.palabra.localeCompare(b.palabra));
-    datos.forEach(entry => {
+    filtrados.sort((a, b) => a.palabra.localeCompare(b.palabra));
+    filtrados.forEach(entry => {
       cont.innerHTML += generarEntrada(entry);
     });
 
   } else if (modo === 'sinonimos') {
-    datos.forEach(entry => {
+    filtrados.forEach(entry => {
       cont.innerHTML += `
         <div class="entrada">
           <h2>${entry.palabra}</h2>
@@ -35,7 +45,7 @@ function mostrarModo(modo) {
   } else if (modo === 'temas') {
     const porTema = {};
 
-    datos.forEach(entry => {
+    filtrados.forEach(entry => {
       entry.temas.forEach(t => {
         if (!porTema[t]) porTema[t] = [];
         porTema[t].push(entry);

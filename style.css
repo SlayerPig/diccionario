@@ -1,9 +1,11 @@
-body {
-  font-family: sans=serif;
-  padding: 20px;
-  background: #f9f9f9;
+.entrada {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-#contenido {
-  margin-top: 20px;
+h2 {
+  margin-bottom: 4px;
+  color: #0077aa;
 }

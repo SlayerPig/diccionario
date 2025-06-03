@@ -1,22 +1,26 @@
 [
   {
-    "palabra": "alegría",
-    "definicion": "Sentimiento de placer y felicidad.",
-    "sinonimos": ["felicidad", "gozo", "júbilo"],
-    "antonimos": ["tristeza", "melancolía"],
-    "ejemplo": "Su rostro se iluminó de alegría al recibir la noticia.",
-    "pronunciacion": "a-le-grí-a",
-    "tipo": "sustantivo",
-    "temas": ["emociones", "sentimientos"]
+    "palabra": "corazón",
+    "terminacion": "ón",
+    "rimas": ["canción", "pasión", "razón", "emoción"],
+    "temas": ["amor", "sentimientos"]
   },
   {
-    "palabra": "tristeza",
-    "definicion": "Estado de ánimo decaído o melancólico.",
-    "sinonimos": ["melancolía", "pena", "aflicción"],
-    "antonimos": ["alegría", "júbilo"],
-    "ejemplo": "Sintió una gran tristeza tras la despedida.",
-    "pronunciacion": "tris-te-za",
-    "tipo": "sustantivo",
-    "temas": ["emociones", "sentimientos"]
+    "palabra": "caminar",
+    "terminacion": "ar",
+    "rimas": ["volar", "soñar", "saltar", "bailar"],
+    "temas": ["movimiento", "libertad"]
+  },
+  {
+    "palabra": "rima",
+    "terminacion": "ima",
+    "rimas": ["clima", "estima", "víctima", "prisma"],
+    "temas": ["poesía", "lenguaje"]
+  },
+  {
+    "palabra": "luz",
+    "terminacion": "uz",
+    "rimas": ["cruz", "voz", "haz", "plus"],
+    "temas": ["espiritualidad", "claridad"]
   }
 ]

@@ -1,17 +1,54 @@
-.entrada {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px 0;
-}
-h2 {
-  margin-bottom: 4px;
-  color: #0077aa;
+:root {
+  --color-principal: #4fc3f7; /* Azul por defecto */
+  --color-fondo: #121212;
+  --color-texto: #f5f5f5;
+  --color-borde: #333;
+  --transicion: 0.3s ease;
 }
 
-#busqueda {
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+input[type="text"] {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 18px;
   margin-bottom: 15px;
+  background: #1e1e1e;
+  border: 2px solid var(--color-principal);
+  color: var(--color-texto);
+  border-radius: 8px;
+  transition: border var(--transicion);
+}
+
+.config {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+#tema {
+  padding: 5px;
+  border-radius: 5px;
+  background: #222;
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+}
+
+.entrada {
+  border: 2px solid var(--color-principal);
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px 0;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

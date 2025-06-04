@@ -63,4 +63,26 @@ function mostrarRimas(palabra) {
       });
     }
   }
+
+document.getElementById('tema').addEventListener('change', e => {
+  const tema = e.target.value;
+  let color;
+
+  switch (tema) {
+    case 'verde':
+      color = '#66bb6a';
+      break;
+    case 'rojo':
+      color = '#ef5350';
+      break;
+    case 'morado':
+      color = '#ab47bc';
+      break;
+    case 'azul':
+    default:
+      color = '#4fc3f7';
+  }
+
+  document.documentElement.style.setProperty('--color-principal', color);
+});
 }

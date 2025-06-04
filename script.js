@@ -12,6 +12,10 @@ document.getElementById('busqueda').addEventListener('input', e => {
   mostrarRimas(palabra);
 });
 
+function quitarAcentos(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function mostrarRimas(palabra) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
@@ -21,7 +25,12 @@ function mostrarRimas(palabra) {
     return;
   }
 
-  const entrada = datos.find(e => e.palabra.toLowerCase() === palabra);
+  const palabraNormalizada = quitarAcentos(palabra.toLowerCase());
+
+  // Buscar coincidencia exacta ignorando acentos
+  const entrada = datos.find(e =>
+    quitarAcentos(e.palabra.toLowerCase()) === palabraNormalizada
+  );
 
   if (entrada) {
     cont.innerHTML += `
@@ -33,9 +42,11 @@ function mostrarRimas(palabra) {
       </div>
     `;
   } else {
-    // Si no encuentra la palabra exacta, busca por terminación similar
-    const terminacion = palabra.slice(-2); // las dos últimas letras
-    const sugerencias = datos.filter(e => e.terminacion.includes(terminacion));
+    // Si no encuentra exacto, buscar por terminación similar
+    const terminacion = palabraNormalizada.slice(-2);
+    const sugerencias = datos.filter(e =>
+      quitarAcentos(e.terminacion).includes(terminacion)
+    );
 
     if (sugerencias.length === 0) {
       cont.innerHTML = `<p>No se encontraron rimas para "<strong>${palabra}</strong>".</p>`;

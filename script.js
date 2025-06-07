@@ -1,6 +1,6 @@
 let datos;
+let idiomaActual = 'es';
 
-// Cargar el JSON (jasdjjads ahi dice yeison asi komo el de la motosierra)
 fetch('data/diccionario.json')
   .then(res => res.json())
   .then(json => {
@@ -8,25 +8,53 @@ fetch('data/diccionario.json')
     mostrarRimas('');
   });
 
-// Quitar acentos de una cadena (ajajakakaajajk las cadenas no tienen acentos porke son  de metal ajsjdja)
+document.getElementById('busqueda').addEventListener('input', e => {
+  const palabra = e.target.value.toLowerCase();
+  mostrarRimas(palabra);
+});
+
+document.getElementById('tema').addEventListener('change', e => {
+  const tema = e.target.value;
+  const colores = {
+    azul: '#4fc3f7',
+    verde: '#66bb6a',
+    rojo: '#ef5350',
+    morado: '#ab47bc'
+  };
+  document.documentElement.style.setProperty('--color-principal', colores[tema] || colores.azul);
+});
+
+document.getElementById('idioma').addEventListener('change', e => {
+  idiomaActual = e.target.value;
+  document.getElementById('busqueda').placeholder = {
+    es: 'Escribe una palabra para rimar...',
+    en: 'Type a word to rhyme...',
+    fr: 'Tape un mot pour rimer...'
+  }[idiomaActual];
+  mostrarRimas(document.getElementById('busqueda').value.toLowerCase());
+});
+
 function quitarAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Mostrar resultados de rimas rimosas rimudas rimoneras remolino 
 function mostrarRimas(palabra) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
 
   if (palabra === '') {
-    cont.innerHTML = '<p>Escribe una palabra para encontrar rimas.</p>';
+    cont.innerHTML = idiomaActual === 'es'
+      ? '<p>Escribe una palabra para encontrar rimas.</p>'
+      : idiomaActual === 'en'
+      ? '<p>Type a word to find rhymes.</p>'
+      : '<p>Tape un mot pour trouver des rimes.</p>';
     return;
   }
 
   const palabraNormalizada = quitarAcentos(palabra.toLowerCase());
 
   const entrada = datos.find(e =>
-    quitarAcentos(e.palabra.toLowerCase()) === palabraNormalizada
+    quitarAcentos(e.palabra.toLowerCase()) === palabraNormalizada && e.idioma === idiomaActual
   );
 
   if (entrada) {
@@ -41,13 +69,25 @@ function mostrarRimas(palabra) {
   } else {
     const terminacion = palabraNormalizada.slice(-2);
     const sugerencias = datos.filter(e =>
-      quitarAcentos(e.terminacion).includes(terminacion)
+      quitarAcentos(e.terminacion).includes(terminacion) && e.idioma === idiomaActual
     );
 
     if (sugerencias.length === 0) {
-      cont.innerHTML = `<p>No se encontraron rimas para "<strong>${palabra}</strong>".</p>`;
+      cont.innerHTML = `<p>${
+        idiomaActual === 'es'
+          ? `No se encontraron rimas para "<strong>${palabra}</strong>".`
+          : idiomaActual === 'en'
+          ? `No rhymes found for "<strong>${palabra}</strong>".`
+          : `Aucune rime trouvée pour "<strong>${palabra}</strong>".`
+      }</p>`;
     } else {
-      cont.innerHTML = `<p>No se encontró "${palabra}", pero estas palabras riman de forma parcial:</p>`;
+      cont.innerHTML = `<p>${
+        idiomaActual === 'es'
+          ? `No se encontró "${palabra}", pero estas palabras riman de forma parcial:`
+          : idiomaActual === 'en'
+          ? `No exact match for "${palabra}", but partial rhymes found:`
+          : `Pas de correspondance exacte pour "${palabra}", mais des rimes partielles:`
+      }</p>`;
       sugerencias.forEach(entry => {
         cont.innerHTML += `
           <div class="entrada">
@@ -60,32 +100,3 @@ function mostrarRimas(palabra) {
     }
   }
 }
-
-// Escuchar entrada de texto textoso
-document.getElementById('busqueda').addEventListener('input', e => {
-  const palabra = e.target.value.toLowerCase();
-  mostrarRimas(palabra);
-});
-
-// Cambiar color del tema asi para ke se vea bien colorido komo ut kieras
-document.getElementById('tema').addEventListener('change', e => {
-  const tema = e.target.value;
-  let color;
-
-  switch (tema) {
-    case 'verde':
-      color = '#66bb6a';
-      break;
-    case 'rojo':
-      color = '#ef5350';
-      break;
-    case 'morado':
-      color = '#ab47bc';
-      break;
-    case 'azul':
-    default:
-      color = '#4fc3f7';
-  }
-
-  document.documentElement.style.setProperty('--color-principal', color);
-});

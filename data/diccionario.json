@@ -1,26 +1,23 @@
 [
   {
     "palabra": "corazón",
+    "rimas": ["canción", "emoción", "pasión"],
+    "temas": ["amor", "sentimientos"],
     "terminacion": "ón",
-    "rimas": ["canción", "pasión", "razón", "emoción"],
-    "temas": ["amor", "sentimientos"]
+    "idioma": "es"
   },
   {
-    "palabra": "caminar",
-    "terminacion": "ar",
-    "rimas": ["volar", "soñar", "saltar", "bailar"],
-    "temas": ["movimiento", "libertad"]
+    "palabra": "love",
+    "rimas": ["dove", "glove", "above"],
+    "temas": ["emotion", "affection"],
+    "terminacion": "ove",
+    "idioma": "en"
   },
   {
-    "palabra": "rima",
-    "terminacion": "ima",
-    "rimas": ["clima", "estima", "víctima", "prisma"],
-    "temas": ["poesía", "lenguaje"]
-  },
-  {
-    "palabra": "luz",
-    "terminacion": "uz",
-    "rimas": ["cruz", "voz", "haz", "plus"],
-    "temas": ["espiritualidad", "claridad"]
+    "palabra": "amour",
+    "rimas": ["tour", "jour", "retour"],
+    "temas": ["sentiment", "romance"],
+    "terminacion": "our",
+    "idioma": "fr"
   }
 ]

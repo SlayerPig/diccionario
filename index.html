@@ -3,35 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diccionario ejeejejje</title>
+  <title>Diccionario de Rimas</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>diccionario jejeje</h1>
+  <h1>Diccionario de Rimas 🎤</h1>
 
-  <select id="modo">
-    <option value="alfabetico">Alfabético</option>
-    <option value="sinonimos">Sinónimos</option>
-    <option value="temas">Temático</option>
-  </select>
+  <div class="config">
+    <label for="modo">📚 Modo:</label>
+    <select id="modo">
+      <option value="alfabetico">Alfabético</option>
+      <option value="sinonimos">Sinónimos</option>
+      <option value="temas">Temático</option>
+    </select>
+  </div>
 
-<div class="config">
-  <label for="tema">🎨 Tema:</label>
-  <select id="tema">
-    <option value="azul">Azul</option>
-    <option value="verde">Verde</option>
-    <option value="rojo">Rojo</option>
-    <option value="morado">Morado</option>
-  </select>
-</div>
-  
-<input type="text" id="busqueda" placeholder="Escribe una palabra para rimar..." />
-<div id="contenido"></div>
+  <div class="config">
+    <label for="tema">🎨 Tema:</label>
+    <select id="tema">
+      <option value="azul">Azul</option>
+      <option value="verde">Verde</option>
+      <option value="rojo">Rojo</option>
+      <option value="morado">Morado</option>
+    </select>
+  </div>
 
+  <input type="text" id="busqueda" placeholder="Escribe una palabra para rimar..." />
+  <div id="contenido"></div>
 
   <script src="script.js"></script>
-
-  
-  
 </body>
 </html>

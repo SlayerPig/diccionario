@@ -1,6 +1,6 @@
 let datos;
 
-// Cargar el JSON
+// Cargar el JSON (jasdjjads ahi dice yeison asi komo el de la motosierra)
 fetch('data/diccionario.json')
   .then(res => res.json())
   .then(json => {
@@ -8,12 +8,12 @@ fetch('data/diccionario.json')
     mostrarRimas('');
   });
 
-// Quitar acentos de una cadena
+// Quitar acentos de una cadena (ajajakakaajajk las cadenas no tienen acentos porke son  de metal ajsjdja)
 function quitarAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Mostrar resultados de rimas
+// Mostrar resultados de rimas rimosas rimudas rimoneras remolino 
 function mostrarRimas(palabra) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
@@ -61,13 +61,13 @@ function mostrarRimas(palabra) {
   }
 }
 
-// Escuchar entrada de texto
+// Escuchar entrada de texto textoso
 document.getElementById('busqueda').addEventListener('input', e => {
   const palabra = e.target.value.toLowerCase();
   mostrarRimas(palabra);
 });
 
-// Cambiar color del tema
+// Cambiar color del tema asi para ke se vea bien colorido komo ut kieras
 document.getElementById('tema').addEventListener('change', e => {
   const tema = e.target.value;
   let color;

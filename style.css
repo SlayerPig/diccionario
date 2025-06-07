@@ -1,5 +1,5 @@
 :root {
-  --color-principal: #4fc3f7; /* akzul por defecto */
+  --color-principal: #4fc3f7;
   --color-fondo: #121212;
   --color-texto: #f5f5f5;
   --color-borde: #333;
@@ -31,12 +31,13 @@ input[type="text"] {
   font-size: 16px;
 }
 
-#tema {
+select {
   padding: 5px;
   border-radius: 5px;
   background: #222;
   color: var(--color-texto);
   border: 1px solid var(--color-borde);
+  margin-right: 10px;
 }
 
 .entrada {

@@ -1,5 +1,6 @@
 let datos;
 
+// Cargar el JSON
 fetch('data/diccionario.json')
   .then(res => res.json())
   .then(json => {
@@ -7,15 +8,12 @@ fetch('data/diccionario.json')
     mostrarRimas('');
   });
 
-document.getElementById('busqueda').addEventListener('input', e => {
-  const palabra = e.target.value.toLowerCase();
-  mostrarRimas(palabra);
-});
-
+// Quitar acentos de una cadena
 function quitarAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+// Mostrar resultados de rimas
 function mostrarRimas(palabra) {
   const cont = document.getElementById('contenido');
   cont.innerHTML = '';
@@ -27,7 +25,6 @@ function mostrarRimas(palabra) {
 
   const palabraNormalizada = quitarAcentos(palabra.toLowerCase());
 
-  // Buscar coincidencia exacta ignorando acentos
   const entrada = datos.find(e =>
     quitarAcentos(e.palabra.toLowerCase()) === palabraNormalizada
   );
@@ -42,7 +39,6 @@ function mostrarRimas(palabra) {
       </div>
     `;
   } else {
-    // Si no encuentra exacto, buscar por terminación similar
     const terminacion = palabraNormalizada.slice(-2);
     const sugerencias = datos.filter(e =>
       quitarAcentos(e.terminacion).includes(terminacion)
@@ -63,7 +59,15 @@ function mostrarRimas(palabra) {
       });
     }
   }
+}
 
+// Escuchar entrada de texto
+document.getElementById('busqueda').addEventListener('input', e => {
+  const palabra = e.target.value.toLowerCase();
+  mostrarRimas(palabra);
+});
+
+// Cambiar color del tema
 document.getElementById('tema').addEventListener('change', e => {
   const tema = e.target.value;
   let color;
@@ -85,4 +89,3 @@ document.getElementById('tema').addEventListener('change', e => {
 
   document.documentElement.style.setProperty('--color-principal', color);
 });
-}
